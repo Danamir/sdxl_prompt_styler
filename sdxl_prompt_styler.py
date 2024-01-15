@@ -92,9 +92,9 @@ def split_template_advanced(template: str) -> tuple:
     """
     Splits a template into two parts based on a specific pattern.
     """
-    if "{prompt} ." in template:
-        template_prompt_g, template_prompt_l = template.split("{prompt} .", 1)
-        template_prompt_g = template_prompt_g.strip() + " {prompt}"
+    if " . " in template:
+        template_prompt_g, template_prompt_l = template.split(" . ", 1)
+        template_prompt_g = template_prompt_g.strip()
         template_prompt_l = template_prompt_l.strip()
     else:
         template_prompt_g = template
@@ -139,7 +139,7 @@ def replace_prompts_in_template_advanced(template, positive_prompt_g, positive_p
 
     text_g_positive = template_prompt_g.replace("{prompt}", positive_prompt_g)
 
-    text_l_positive = f"{template_prompt_l_template}, {positive_prompt_l}" if template_prompt_l_template and positive_prompt_l else template_prompt_l_template or positive_prompt_l
+    text_l_positive = f"{template_prompt_l_template.replace('{prompt}', positive_prompt_g)}, {positive_prompt_l}" if template_prompt_l_template and positive_prompt_l else template_prompt_l_template.replace('{prompt}', positive_prompt_g) or positive_prompt_l
 
     text_positive = f"{text_g_positive} . {text_l_positive}" if text_l_positive else text_g_positive
 

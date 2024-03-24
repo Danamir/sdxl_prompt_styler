@@ -145,12 +145,12 @@ def replace_prompts_in_template_advanced(template, positive_prompt_g, positive_p
     if copy_to_l and positive_prompt_g and "{prompt}" not in template_prompt_l_template:
         token_positive_g = list(map(lambda x: x.strip(), text_g_positive.split(",")))
         token_positive_l = list(map(lambda x: x.strip(), text_l_positive.split(",")))
-        
+
         # deduplicate common prompt parts
         for token_g in token_positive_g:
             if token_g in token_positive_l:
                 token_positive_l.remove(token_g)
-        
+
         token_positive_g.extend(token_positive_l)
 
         text_l_positive = ", ".join(token_positive_g)
